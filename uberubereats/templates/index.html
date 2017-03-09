@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>UberUberEATS</title>
+        <link rel="icon" href="https://d3i4yxtzktqr9n.cloudfront.net/web-eats/static/favicon-17677bc2ca.ico" />
+        <style>
+            * { margin: 0; padding: 0; border: 0; }
+            html, body, ul {
+                min-height: 100%;
+                width: 100%;
+                text-align: center;
+                color: white;
+                text-shadow: 0 0 2px black;
+                font-family: sans-serif;
+            }
+            a:link, a:visited {
+                text-decoration: inherit;
+                color: inherit;
+            }
+            .store {
+                display: block;
+                padding: .5em;
+                background-repeat: none;
+                background-size: cover;
+            }
+            .name {
+                font-size: 24px;
+                text-shadow: 0 0 4px black;
+            }
+            .tag {
+                display: inline;
+            }
+            .tag+.tag:before { content: "\2022"; }
+            .closed {
+                filter: grayscale(100%);
+            }
+        </style>
+    </head>
+    <body>
+        <ul>
+            {% for store in stores %}
+            <li class="store {% if not store.orderable %} closed {% endif %}" data-src="{{ store.image }}">
+                <a href="https://www.ubereats.com/stores/{{ store.uuid }}/" class="name">{{ store.name }}</a>
+                <ul class="tags">
+                    {% for tag in store.tags %}
+                    <li class="tag"> {{ tag }} </li>
+                    {% endfor %}
+                </ul>
+                {% if store.price %}
+                    <span class="price">{{ store.price }}</span> &#x2022;
+                {% endif %}
+                <span class="eta">{{ store.eta[0] }}-{{ store.eta[1] }} minutes</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.8.2/blazy.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function(){
+                var bLazy = new Blazy({
+                    offset: 1000,
+                    selector: '.store',
+                });
+            });
+        </script>
+    </body>
+</html>

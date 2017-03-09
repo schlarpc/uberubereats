@@ -5,18 +5,23 @@
         <title>UberUberEATS</title>
         <link rel="icon" href="https://d3i4yxtzktqr9n.cloudfront.net/web-eats/static/favicon-17677bc2ca.ico" />
         <style>
-            * { margin: 0; padding: 0; border: 0; }
-            html, body, ul {
+            * {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                box-sizing: border-box;
+                text-decoration: inherit;
+                color: inherit;
+            }
+            html, body, .stores {
                 min-height: 100%;
                 width: 100%;
+            }
+            body {
                 text-align: center;
                 color: white;
                 text-shadow: 0 0 2px black;
                 font-family: sans-serif;
-            }
-            a:link, a:visited {
-                text-decoration: inherit;
-                color: inherit;
             }
             .store {
                 display: block;
@@ -31,14 +36,19 @@
             .tag {
                 display: inline;
             }
-            .tag+.tag:before { content: "\2022"; }
+            .tag+.tag:before {
+                content: "\2022";
+            }
+            .price:after {
+                content: "\2022";
+            }
             .closed {
                 filter: grayscale(100%);
             }
         </style>
     </head>
     <body>
-        <ul>
+        <ul class="stores">
             {% for store in stores %}
             <li class="store {% if not store.orderable %} closed {% endif %}" data-src="{{ store.image }}">
                 <a href="https://www.ubereats.com/stores/{{ store.uuid }}/" class="name">{{ store.name }}</a>
@@ -48,9 +58,9 @@
                     {% endfor %}
                 </ul>
                 {% if store.price %}
-                    <span class="price">{{ store.price }}</span> &#x2022;
+                    <span class="price"> {{ store.price }} </span>
                 {% endif %}
-                <span class="eta">{{ store.eta[0] }}-{{ store.eta[1] }} minutes</span>
+                <span class="eta"> {{ store.eta[0] }}-{{ store.eta[1] }} minutes </span>
             </li>
             {% endfor %}
         </ul>

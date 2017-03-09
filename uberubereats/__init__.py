@@ -1,7 +1,8 @@
-import requests
-import flask
-import re
 import json
+import re
+
+import flask
+import requests
 
 UBEREATS_HOST = 'https://www.ubereats.com'
 SEARCH_COORDINATES = (47.6276544, -122.341216)

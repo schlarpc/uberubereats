@@ -34,7 +34,7 @@ def process_raw_stores(stores):
             'orderable': store['isOrderable'],
             'name': store['title'],
             'eta': tuple(store['etdInfo']['dropoffETARange'][p] for p in ('min', 'max')),
-            'tags': sorted([t['name'] for t in store['tags']]),
+            'tags': sorted([t['name'] for t in store.get('tags', [])]),
             'price': store.get('priceBucket', None),
         }
 

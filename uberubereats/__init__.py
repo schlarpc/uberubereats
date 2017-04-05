@@ -30,7 +30,7 @@ def process_raw_stores(stores):
     for store in stores:
         yield {
             'uuid': store['uuid'],
-            'image': store.get('largeHeroImageUrl', store['heroImageUrl']),
+            'image': store.get('largeHeroImageUrl', store.get('heroImageUrl', '')),
             'orderable': store['isOrderable'],
             'name': store['title'],
             'eta': tuple(store['etdInfo']['dropoffETARange'][p] for p in ('min', 'max')),
